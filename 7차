@@ -1,0 +1,223 @@
+stocks <- tibble(
+  year   = c(2015, 2015, 2016, 2016),
+  half  = c(   1,    2,     1,    2),
+  return = c(1.88, 0.59, 0.92, 0.17)
+)
+stocks %>% 
+  spread(year, return) %>% 
+  gather("year", "return", `2015`:`2016`)
+ 
+
+map(.x=stat[,3:19], f= mean, na.rm =T)
+
+  
+
+ggplot() +
+  theme
+
+
+
+getwd()
+setwd(dir ="C:/R/Nano Degree" )
+list.files(pattern = '.RDS')
+stat <- read.RDS(file='2019_KBO_Win.RDS')
+
+
+teamHit <- stat %>% 
+  group_by(팀명) %>% 
+  summarise(인원=n(),
+              팀안타= sum(안타)) %>% 
+  mutate(평균안타 = round(x=팀안타/인원, digits=2L))
+
+teamHit <- stat %>% 
+  group_by(팀명) %>% 
+  summarise(인원=n(),
+              팀안타= sum(안타)) %>% 
+  mutate(평균안타 = round(x=팀안타/인원, digits=2L)) %>% 
+  arrange(desc(x=평균안타))
+
+
+
+mean(x=stat$안타)
+
+mean(x = stat$안타, na.rm = T)
+
+mean(x = stat$안타, trim = 0.1)
+
+mean(x = stat$안타, trim = 0.05)
+
+mean(x = stat$안타, trim = 0.10)
+
+library(matrixStats)
+
+weighted.mean(x=teamHit$평균안타,
+              w=teamHit$인원)
+
+mean(x = stat$안타)
+mean(x = teamHit$평균안타)
+
+median(x = stat$안타)
+
+median(x = stat$안타, na.rm = T)
+
+tbl <- table(x=stat$안타); print(x=tbl)
+#문자혈 벡터로 뽑고싶을때
+names(x = tbl)
+
+tbl == max(x = tbl)
+names(x = tbl)[tbl == max(x = tbl)]
+max(tbl)
+tbl==max(tbl)
+
+
+
+range(x=stat$안타)
+min(stat$안타)
+max(stat$안타)
+max(stat$안타) - min(stat$안타)
+range(stat$안타) %>% diff()
+
+obj <- stat$타율
+range(x=obj, na.rm=T)
+min(obj, na.rm=T)
+max(obj, na.rm=T)
+max(obj, na.rm=T) - min(obj, na.rm=T)
+range(obj, na.rm=T) %>% diff()
+
+
+quantile(x=stat$안타,
+         probs=seq(from = 0, to=1, by= 0.25))
+
+#90분위수 ( 상위 10퍼센트에 해당 한다는 뜻을 의미한다.)
+quantile(x=stat$안타,
+         probs= 0.9)
+
+         
+quantile(x=stat$안타,
+         probs= c(0.1, 0.9))
+
+#10분위수 최소 값 부터최대값까지 볼 수 있다.
+quantile(x=stat$안타,
+         probs=seq(from = 0, to=1, by= 0.1))
+
+
+IQR(x=stat$안타)
+
+#이상치를 구하는 방법
+IQR(x=stat$안타) *1.5
+
+
+sd(x=stat$안타)
+
+mad(x=stat$안타, constant = 1)
+
+mad(x=stat$안타)
+
+library(moments)
+# 한쪽 으로 치우쳐져 있다.
+skewness(x=stat$안타)
+
+#
+kurtosis(x=stat$안타)
+#정규 분포보다 완만하다.
+set.seed(1234)
+kurtosis(rnorm(n = 1000, mean = 0, sd = 1))
+
+set.seed(1234)
+kurtosis(rnorm(n = 10000, mean = 0, sd = 1))
+
+
+
+set.seed(1234)
+heights <- rnorm(n = 5000, mean = 172.4, sd = 5.7)
+
+skewness(x =  heights)
+kurtosis(x =  heights)
+shapiro.test(x =  heights)
+
+map_dbl(.x =  stat[, 3:19], .f = mean, na.rm =T)
+
+map_dbl(.x =  stat[, 3:19], .f = sd, na.rm =T)
+
+#아래 두 개가 데이터가 잘 들어왔는지 확인하는데 제일 중요하다.
+str(stat)
+summary(object = stat)
+
+table
+library(psych)
+
+psych::describe(x = stat[,3:19])
+
+# 공분산관계
+cov(x = stat$타수, y = stat$안타, use = 'complete.obs')
+
+# 상관관계 
+cor(x = stat$타수, y = stat$안타, use = 'complete.obs')
+
+
+raege(x=stat$타석)
+breaks <- seq(from = 0, to = 650, by = 50)
+
+str(breaks)
+breaks
+
+cuts <- cut(x=stat$타석, breaks = breaks, incloude.lowet = T)
+cuts %>% 
+  table() %>% 
+  prop.table() %>% 
+  round(digits = 4L)* 100
+
+
+stat$타석[1:10]
+cuts[1:10]
+
+# 뭐라하셨더라....
+cuts %>% table() %>% prop.table()
+
+
+
+cuts %>% 
+  table() %>% 
+  prop.table() %>% 
+  round(digits = 4L) * 100
+
+#강의 내용 봐보자 종료 약 25분전
+stat50 <- stat %>% filter(타석 > 50)
+
+par(family = 'AppleGothic')
+
+
+## gray 숫자가 클수록 연한 회색  낮을 수록 어두운 색
+# xlap x축의 이름 ylab y축의 이름
+#breaks 간격
+# ylim  y축의 최대치 ( 표의 위에 글자가 안보일때 ylim을 통해 최대 값을 높여준다다)
+
+hist(x = stat50$타석, 
+     freq = TRUE, 
+     breaks = breaks, 
+     ylim =c(0,40),
+     col = 'gray30', 
+     border= 'gray30', 
+     labels = TRUE, 
+     main = '히스토그램',
+     xlab = '타석', 
+     ylab= '빈도수')
+
+
+range(x=stat50$OPS)
+
+breaks <- seq(from = 0.2, to = 1.1, by = 0.05)
+
+hist(x= stat50$OPS,
+     breaks = breaks,
+     col = 'gray70',
+     labels = TRUE)
+
+
+hist(x= stat50$OPS,
+     freq = FALSE,
+     breaks = breaks)
+
+lines(x= density(x=stat50$OPS),
+      col= 'red',
+      lwd = 2)
