@@ -23,3 +23,4 @@ guessNumber <- function() {
   }
 }
 
+guessNumber()
